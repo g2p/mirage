@@ -75,6 +75,8 @@ val kv_ro : ?group:string -> unit -> [ `Archive | `Crunch | `Direct | `Fat ] key
 (** {3 Block device keys} *)
 val block : ?group:string -> unit -> [ `BlockFile | `Ramdisk ] key
 
+val device_size : ?group:string -> unit -> int64 key
+
 (** {3 PRNG key} *)
 
 val prng : ?group:string -> unit -> [ `Stdlib | `Nocrypto ] key

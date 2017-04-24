@@ -222,6 +222,17 @@ let block ?group () =
   in
   create_simple ~doc ?group ~stage:`Configure ~default:`Ramdisk conv "block"
 
+let device_size ?group () =
+  let conv = Cmdliner.Arg.int64 in
+  let serialize = Fmt.of_to_string Int64.to_string in
+  let conv = Arg.conv ~conv ~serialize ~runtime_conv:"device_size" in
+  let doc =
+    Fmt.strf
+    "Use a ramdisk of size $(docv) (in bytes) for %a."
+    pp_group group
+  in
+  create_simple ~doc ?group ~stage:`Configure ~default:16777216L conv "device-size"
+
 (** {3 PRNG key} *)
 let prng ?group () =
   let conv =
