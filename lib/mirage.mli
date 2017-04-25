@@ -177,7 +177,8 @@ val ramdisk: string -> block impl
 (** Use a ramdisk with the given name. *)
 
 val generic_block:
-  ?key:[ `BlockFile | `Ramdisk ] value -> string -> block impl
+  ?key1:[ `BlockFile | `Ramdisk ] value -> ?key2:int64 value -> ?key3:int value
+  -> string -> block impl
 
 (** {2 Static key/value stores} *)
 
