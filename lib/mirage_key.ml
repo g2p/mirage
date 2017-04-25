@@ -222,16 +222,27 @@ let block ?group () =
   in
   create_simple ~doc ?group ~stage:`Configure ~default:`Ramdisk conv "block"
 
-let device_size ?group () =
+let block_size_sectors ?group () =
   let conv = Cmdliner.Arg.int64 in
   let serialize = Fmt.of_to_string Int64.to_string in
-  let conv = Arg.conv ~conv ~serialize ~runtime_conv:"device_size" in
+  let conv = Arg.conv ~conv ~serialize ~runtime_conv:"block_size_sectors" in
   let doc =
     Fmt.strf
-    "Use a ramdisk of size $(docv) (in bytes) for %a."
+    "Use ramdisks of size $(docv) (in sectors) for %a."
     pp_group group
   in
-  create_simple ~doc ?group ~stage:`Configure ~default:16777216L conv "device-size"
+  create_simple ~doc ?group ~stage:`Configure ~default:32768L conv "block-size-sectors"
+
+let block_sector_size ?group () =
+  let conv = Cmdliner.Arg.int in
+  let serialize = Fmt.of_to_string string_of_int in
+  let conv = Arg.conv ~conv ~serialize ~runtime_conv:"block_sector_size" in
+  let doc =
+    Fmt.strf
+    "Use a ramdisk sector size of $(docv) (in bytes) for %a."
+    pp_group group
+  in
+  create_simple ~doc ?group ~stage:`Configure ~default:512 conv "block-sector-size"
 
 (** {3 PRNG key} *)
 let prng ?group () =

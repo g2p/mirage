@@ -73,9 +73,13 @@ val kv_ro : ?group:string -> unit -> [ `Archive | `Crunch | `Direct | `Fat ] key
     Is one of ["archive"], ["crunch"], ["direct"], or ["fat"]. *)
 
 (** {3 Block device keys} *)
-val block : ?group:string -> unit -> [ `BlockFile | `Ramdisk ] key
 
-val device_size : ?group:string -> unit -> int64 key
+val block : ?group:string -> unit -> [ `BlockFile | `Ramdisk ] key
+(** The block device type.
+    One of ["file"], ["ramdisk"]. *)
+
+val block_size_sectors : ?group:string -> unit -> int64 key
+val block_sector_size : ?group:string -> unit -> int key
 
 (** {3 PRNG key} *)
 
